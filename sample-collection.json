@@ -1,0 +1,22 @@
+[
+    {
+        "customer" : "Anna Pahm",
+        "technician" : "An Pham",
+        "date" : "2022-02-02T12:20:00.000Z",
+        "place" : "Texas"
+    },
+
+    {
+        "customer" : "Hanna Tranie",
+        "technician" : "Nhan Tran",
+        "date" : "2022-01-02T12:34:00.000Z",
+        "place" : "Texas"
+    },
+
+    {
+        "customer" : "Johanssen RedWoods",
+        "technician" : "Vu Nguyen",
+        "date" : "2022-01-12T10:00:00.000Z",
+        "place" : "Texas"
+    }
+]
