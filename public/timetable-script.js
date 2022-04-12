@@ -37,7 +37,35 @@ const calculateWeekNumber = () => {
     return weekNumber;
 };
 
+const generateEventBubbles = (appointmentRecord) => {
+
+};
+
+const retrieveSchedule = () => {
+    fetch('/getAppointments')
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        data.forEach(element => {
+            if(element.customer == "Vacant") {
+                console.log(element.technician);
+                let event1 = document.createElement("div");
+                event1.setAttribute("class", "event-timeslot");
+                event1.appendChild(document.createTextNode(element.technician));
+                document.getElementById("ev-container").appendChild(event1);
+            }
+        });
+
+    })
+    .catch((err) => {
+        console.log('Error: ' + err);
+    });
+};
+
 renderCalendar();
+retrieveSchedule();
+
 
 document.querySelector(".prev").addEventListener("click", () => {
     weekNumber -= 1;

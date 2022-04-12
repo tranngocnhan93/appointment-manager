@@ -57,3 +57,22 @@
     background: lightgray;
     z-index: 1;
 }
+
+.event-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(36, 1fr);
+    grid-area: main;
+    position: relative;
+}
+
+.event-timeslot {
+    position: absolute;
+    background: darkgreen;
+    border-radius: 5px;
+    z-index: 5;
+    color: white;
+    font-size: 12px;
+    grid-row: 5;
+    grid-column: 5;
+}
