@@ -38,17 +38,17 @@
     justify-content: left;
 }
 
-.timeslot {
+.timeslots {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.timeslot li {
+.timeslots li {
     min-height: 60px;
 }
 
-.timeslot li::after {
+.timeslots li::after {
     content: "";
     position: absolute;
     left: 10px;
@@ -61,7 +61,7 @@
 .event-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(36, 1fr);
+    grid-template-rows: repeat(18, 1fr);
     grid-area: main;
     position: relative;
 }
@@ -70,9 +70,11 @@
     position: absolute;
     background: darkgreen;
     border-radius: 5px;
+    height: 2rem;
+    width: 5rem;
     z-index: 5;
     color: white;
     font-size: 12px;
-    grid-row: 5;
-    grid-column: 5;
+    grid-row: 18;
+    grid-column: 0;
 }

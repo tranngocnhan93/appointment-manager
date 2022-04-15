@@ -1,7 +1,9 @@
+import { config } from './public/config.js';
+
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('bson').ObjectID;
-const dbname = "appointments_db"
-const url = "mongodb://localhost:27017";
+const dbname = config.db.name;
+const url = `mongodb://${config.db.host}:${config.db.port}`;
 const mongoOptions = {useNewUrlParser : true};
 
 const connectionStatus = {

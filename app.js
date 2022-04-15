@@ -1,13 +1,13 @@
+import { config } from './public/config.js';
+
 const express = require('express');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'))
 const path = require('path');
-
-const db = require("./db.js");
-const collection = "appointment"
-
+const db = require('./db.js');
+const collection = config.db.collection;
 app.use(express.static('./methods-public'));
 
 app.get('/', (req,res) => {
@@ -73,8 +73,8 @@ db.connect((err) => {
         process.exit(1);
     }
     else {
-        app.listen(3000, () => {
-            console.log('Connected to database, app listening to port 3000');
+        app.listen(config.app.port, () => {
+            console.log('Connected to database, app listening to port ' + config.app.port);
         });
     }
 })
