@@ -10,8 +10,8 @@ const config = {
         collection: 'appointments'
     },
     timetable: {
-        open_hour: 9,
-        close_hour: 17,
+        open_hour: 8,
+        close_hour: 16,
     }
 };
 

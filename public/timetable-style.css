@@ -1,4 +1,4 @@
-.calendar-container {
+.timetable-container {
     display: grid;
     grid-template-columns: 50px auto;
     grid-template-rows: auto;
@@ -21,7 +21,7 @@
 }
 
 .weekdays,
-.daynumbers {
+.weekdaynumbers {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     min-height: 2em;
@@ -58,7 +58,7 @@
     z-index: 1;
 }
 
-.event-container {
+.booking-bubble-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(18, 1fr);
@@ -66,7 +66,7 @@
     position: relative;
 }
 
-.event-timeslot {
+.booking-bubble {
     position: absolute;
     background: darkgreen;
     border-radius: 5px;

@@ -3,7 +3,7 @@ import { config } from "./config.js";
 const currentDate = new Date();
 let weekDays = [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]; // Sun - Sat
 let weekDates = ""; // Day numbers
-const weekDateContainer = document.querySelector(".daynumbers");
+const weekDateContainer = document.querySelector(".weekdaynumbers");
 let month = currentDate.getMonth();
 let weekNumber = undefined;
 const months = [
@@ -21,6 +21,13 @@ const months = [
     "Dec",
 ];
 
+const calculateWeekNumber = () => {
+    const startDate = new Date(currentDate.getFullYear(), 0, 1);
+    const days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
+    const weekNumber = Math.ceil((currentDate.getDay() + 1 + days) / 7);
+    return weekNumber;
+};
+
 const renderCalendar = () => {
     weekNumber = calculateWeekNumber();
     for (let i = 0; i < 7; i++) {
@@ -37,27 +44,40 @@ const renderCalendar = () => {
     document.querySelector(".date p").innerHTML = currentDate.toDateString();
 };
 
-const calculateWeekNumber = () => {
-    const startDate = new Date(currentDate.getFullYear(), 0, 1);
-    let days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
-    let weekNumber = Math.ceil((currentDate.getDay() + 1 + days) / 7);
-    return weekNumber;
-};
-
-const generateEventBubbles = (appointmentRecord) => {
-
-};
-
-const isInWeek = (eventDate) => {
+const isInWeek = (bookingDate) => {
     let retval = false;
     for(let i = 0; i < 7; i++) {
-        if((eventDate.getFullYear() == weekDays[i].getFullYear()) &&
-           (eventDate.getMonth() == weekDays[i].getMonth()) &&
-           (eventDate.getDay() == weekDays[i].getDay())) {
+        if((bookingDate.getFullYear() == weekDays[i].getFullYear()) &&
+           (bookingDate.getMonth() == weekDays[i].getMonth()) &&
+           (bookingDate.getDay() == weekDays[i].getDay())) {
                 retval = true;
         }
     }
     return retval;
+};
+
+const generateBookingBubble = (appointmentRecord) => {
+    const bubbleDate = new Date(appointmentRecord.date);
+    const bubbleHour = bubbleDate.getHours();
+    if((bubbleHour >= config.timetable.open_hour) && (bubbleHour <= config.timetable.close_hour)) {
+        // Create a bubble on the timetable
+        let bubble = document.createElement("div");
+        bubble.setAttribute("class", "booking-bubble");
+        bubble.appendChild(document.createTextNode(appointmentRecord.technician));
+        document.getElementById("bb-container").appendChild(bubble);
+
+        // Place the bubble according to date, time
+        if(isInWeek(bubbleDate) == true) {
+            const bubbleColumn = bubbleDate.getDay();
+            bubble.style.gridColumn = bubbleColumn + 1; // 1 = offset
+        }
+
+        // Map the bubble time to timetable's row: Ex: 12:30 => (12 - 8) x 2 + 1 + 1    
+        const bubbleRow = ((bubbleHour - config.timetable.open_hour) * 2) + 1 + (bubbleDate.getMinutes() == 30 ? 1:0);
+        bubble.style.gridRow = bubbleRow;
+    }
+    else
+        console.log("Error: invalid technician's vacant time data: " + appointmentRecord.technician + " at " + bubbleDate);
 };
 
 const retrieveSchedule = () => {
@@ -68,17 +88,7 @@ const retrieveSchedule = () => {
     .then((data) => {
         data.forEach(element => {
             if(element.customer == "Vacant") {
-                console.log(element.technician);
-                let event1 = document.createElement("div");
-                event1.setAttribute("class", "event-timeslot");
-                event1.appendChild(document.createTextNode(element.technician));
-                document.getElementById("ev-container").appendChild(event1);
-
-                let eventDate = new Date(element.date);
-                if(isInWeek(eventDate) == true) {
-                    let column = eventDate.getDay();
-                    event1.style.gridColumn = column + 1; // 1 = offset
-                }
+                generateBookingBubble(element);
             }
         });
 
