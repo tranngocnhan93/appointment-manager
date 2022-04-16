@@ -49,7 +49,7 @@ const isInWeek = (bookingDate) => {
     for(let i = 0; i < 7; i++) {
         if((bookingDate.getFullYear() == weekDays[i].getFullYear()) &&
            (bookingDate.getMonth() == weekDays[i].getMonth()) &&
-           (bookingDate.getDay() == weekDays[i].getDay())) {
+           (bookingDate.getDate() == weekDays[i].getDate())) {
                 retval = true;
         }
     }
@@ -59,25 +59,32 @@ const isInWeek = (bookingDate) => {
 const generateBookingBubble = (appointmentRecord) => {
     const bubbleDate = new Date(appointmentRecord.date);
     const bubbleHour = bubbleDate.getHours();
-    if((bubbleHour >= config.timetable.open_hour) && (bubbleHour <= config.timetable.close_hour)) {
-        // Create a bubble on the timetable
-        let bubble = document.createElement("div");
-        bubble.setAttribute("class", "booking-bubble");
-        bubble.appendChild(document.createTextNode(appointmentRecord.technician));
-        document.getElementById("bb-container").appendChild(bubble);
+    if(isInWeek(bubbleDate) == true) {
+        if((bubbleHour >= config.timetable.open_hour) && (bubbleHour <= config.timetable.close_hour)) {
+            // Create a bubble on the timetable
+            let bubble = document.createElement("div");
+            bubble.setAttribute("class", "booking-bubble");
+            bubble.appendChild(document.createTextNode(appointmentRecord.technician));
+            document.getElementById("bb-container").appendChild(bubble);
 
-        // Place the bubble according to date, time
-        if(isInWeek(bubbleDate) == true) {
+            // Place the bubble according to date, time
             const bubbleColumn = bubbleDate.getDay();
             bubble.style.gridColumn = bubbleColumn + 1; // 1 = offset
-        }
 
-        // Map the bubble time to timetable's row: Ex: 12:30 => (12 - 8) x 2 + 1 + 1    
-        const bubbleRow = ((bubbleHour - config.timetable.open_hour) * 2) + 1 + (bubbleDate.getMinutes() == 30 ? 1:0);
-        bubble.style.gridRow = bubbleRow;
+            // Map the bubble time to timetable's row: Ex: 12:30 => (12 - 8) x 2 + 1 + 1    
+            const bubbleRow = ((bubbleHour - config.timetable.open_hour) * 2) + 1 + (bubbleDate.getMinutes() == 30 ? 1:0);
+            bubble.style.gridRow = bubbleRow;
+        }
+        else
+            console.log("Error: invalid technician's vacant time data: " + appointmentRecord.technician + " at " + bubbleDate);
     }
-    else
-        console.log("Error: invalid technician's vacant time data: " + appointmentRecord.technician + " at " + bubbleDate);
+};
+
+const clearBookingBubbles = () => {
+    const bubbleContainer = document.getElementById("bb-container");
+    while(bubbleContainer.lastChild) {
+        bubbleContainer.removeChild(bubbleContainer.lastChild);
+    }
 };
 
 const retrieveSchedule = () => {
@@ -112,6 +119,8 @@ document.querySelector(".prev").addEventListener("click", () => {
         weekDates += `<div>${months[weekDays[i].getMonth()]+" "+weekDays[i].getDate()}</div>`;
         weekDateContainer.innerHTML = weekDates;
     }
+    clearBookingBubbles();
+    retrieveSchedule();
     document.querySelector(".date h1").innerHTML = "Week "+weekNumber;
 });
 document.querySelector(".next").addEventListener("click", () => {
@@ -124,6 +133,8 @@ document.querySelector(".next").addEventListener("click", () => {
         weekDates += `<div>${months[weekDays[i].getMonth()]+" "+weekDays[i].getDate()}</div>`;
         weekDateContainer.innerHTML = weekDates;
     }
+    clearBookingBubbles();
+    retrieveSchedule();
     document.querySelector(".date h1").innerHTML = "Week "+weekNumber;
 });
 
