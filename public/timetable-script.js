@@ -56,6 +56,28 @@ const isInWeek = (bookingDate) => {
     return retval;
 };
 
+const makeBooking = () => {
+    console.log("Booking made");
+};
+
+const addBookingButton = (bubble) => {
+    return (event) => {
+        console.log(event);
+        bubble.setAttribute("class", "booking-bubble-clicked");
+        
+        // Add booking button
+        if(!bubble.classList.contains("booking-button")) {
+            let bookingButton = document.createElement("button");
+            bookingButton.setAttribute("class", "booking-button");
+            bookingButton.innerHTML = "Book";
+            bookingButton.addEventListener("click", makeBooking);
+            bubble.appendChild(bookingButton);
+        }
+        else
+            console.log("Debuggg do nothing");
+    }
+};
+
 const generateBookingBubble = (appointmentRecord) => {
     const bubbleDate = new Date(appointmentRecord.date);
     const bubbleHour = bubbleDate.getHours();
@@ -64,6 +86,9 @@ const generateBookingBubble = (appointmentRecord) => {
             // Create a bubble on the timetable
             let bubble = document.createElement("div");
             bubble.setAttribute("class", "booking-bubble");
+            bubble.addEventListener("click", addBookingButton(bubble));
+            bubble.appendChild(document.createTextNode(bubbleDate.getHours() + ":" + (bubbleDate.getMinutes() == 0?"00":"30")));
+            bubble.appendChild(document.createElement("br"));
             bubble.appendChild(document.createTextNode(appointmentRecord.technician));
             document.getElementById("bb-container").appendChild(bubble);
 
