@@ -62,19 +62,19 @@ const makeBooking = () => {
 
 const addBookingButton = (bubble) => {
     return (event) => {
-        console.log(event);
         bubble.setAttribute("class", "booking-bubble-clicked");
         
         // Add booking button
-        if(!bubble.classList.contains("booking-button")) {
+        if(bubble.querySelector(".booking-button") === null) {
             let bookingButton = document.createElement("button");
             bookingButton.setAttribute("class", "booking-button");
             bookingButton.innerHTML = "Book";
             bookingButton.addEventListener("click", makeBooking);
             bubble.appendChild(bookingButton);
         }
-        else
-            console.log("Debuggg do nothing");
+        else {
+            bubble.querySelector(".booking-button").style.display = "block";
+        }
     }
 };
 
@@ -133,7 +133,16 @@ const retrieveSchedule = () => {
 renderCalendar();
 retrieveSchedule();
 
-
+document.addEventListener("click", function (event) {
+    let bubbles = document.querySelectorAll('[class="booking-bubble-clicked"]');
+    bubbles.forEach(bubble => {
+        let isClickedInside = bubble.contains(event.target);
+        if(!isClickedInside) {
+            bubble.querySelector(".booking-button").style.display = "none";
+            bubble.setAttribute("class", "booking-bubble");
+        }
+    })
+});
 document.querySelector(".prev").addEventListener("click", () => {
     weekNumber -= 1;
     if(weekNumber <= 0)
