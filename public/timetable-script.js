@@ -1,5 +1,7 @@
 import { config } from "./config.js";
 
+console.log("AQQQQQQQQ" + config.timetable.open_hour);
+
 const currentDate = new Date();
 let weekDays = [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]; // Sun - Sat
 let weekDates = ""; // Day numbers
@@ -58,6 +60,8 @@ const isInWeek = (bookingDate) => {
 
 const makeBooking = () => {
     console.log("Booking made");
+    let bookingForm = document.getElementById("booking-form-container-id");
+    bookingForm.style.display = "block";
 };
 
 const addBookingButton = (bubble) => {

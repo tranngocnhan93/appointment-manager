@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://glitch.com/favicon.ico" />
     <script src="https://kit.fontawesome.com/16f5cf4bee.js" crossorigin="anonymous"></script>
-    
+
     <title>Time Table</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="timetable-style.css" />
 </head>
 
 <body>
-    <script src="timetable-script.js" type="module" defer></script>
+    <script src="timetable-script.js" defer></script>
     <header>
         <img class="logo" src="image/logo.svg" width="50" height="50" alt="logo">
         <nav>
@@ -36,7 +36,7 @@
     </header>
 
     <div class="timetable-container">
-        <div class="month">
+        <div class="weeknumber">
             <i class="fas fa-angle-left prev"></i>
             <div class="date">
                 <h1></h1>
@@ -45,8 +45,10 @@
             <i class="fas fa-angle-right next"></i>
         </div>
 
+        <div class="dummy-corner-filler"></div>
         <div class="header">
-            <ul class="weekdays">   <!-- Timetable columns -->
+            <ul class="weekdays">
+                <!-- Timetable columns -->
                 <li>Sunday</li>
                 <li>Monday</li>
                 <li>Tuesday</li>
@@ -56,7 +58,8 @@
                 <li>Saturday</li>
             </ul>
 
-            <ul class="weekdaynumbers"> <!-- Ex: Apr 15 -->
+            <ul class="weekdaynumbers">
+                <!-- Ex: Apr 15 -->
                 <li></li>
                 <li></li>
                 <li></li>
@@ -67,13 +70,38 @@
             </ul>
         </div>
 
-        <div class="timeslot-container"> <!-- Timetable rows -->
+        <div class="timeslot-container">
+            <!-- Timetable rows -->
             <ul class="timeslots" id="timeslots-id">
             </ul>
         </div>
 
         <div class="booking-bubble-container" id="bb-container">
         </div>
+
+        <div class="booking-form-container" id="booking-form-container-id">
+            <form action="/createAppointment" method="post">
+                <ul>
+                    <li>
+                        <label for="Date">Time:</label>
+                        <input type="text" id="Date" name="Date_db">
+                    </li>
+                    <li>
+                        <label for="technician">Technician Name:</label>
+                        <input type="text" id="technician" name="Technician_db">
+                    </li>
+                    <li>
+                        <label for="Customer">Customer Name:</label>
+                        <input type="text" id="Customer" name="Customer_db">
+                    </li>
+                    <li>
+                        <label for="Phone">Customer Phone:</label>
+                        <input type="text" id="Phone" name="Phone_db">
+                    </li>
+                </ul>
+            </form>
+        </div>
+
 
     </div>
 </body>

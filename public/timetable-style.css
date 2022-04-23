@@ -1,40 +1,49 @@
 .timetable-container {
     display: grid;
-    grid-template-columns: 50px auto;
+    grid-template-columns: 50px repeat(7, 1fr);
     grid-template-rows: auto;
     gap: 1px 1px;
-    grid-template-areas: 
-        ". month"
-        ". header"
-        "timeslot-container main";
 }
 
-.month {
+.weeknumber {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    display: grid;
+    grid-template-columns: 100px 120px 100px;
+    grid-template-rows: 70px;
+    column-gap:40px;
     background-color: aquamarine;
-    grid-area: month;
-    width: 100%;
     height: 5rem;
-    display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     text-align: center;
 }
 
+.header {
+    grid-column-start: 2;
+    grid-column-end: -1;
+    background: gray;
+}
+
+.dummy-corner-filler {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    background: gray;
+}
+
 .weekdays,
 .weekdaynumbers {
+    grid-column-start: 2;
+    grid-column-end: -1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     min-height: 2em;
 }
 
-.header {
-    background: gray;
-    grid-area: header; /* associate with calendar container */
-}
-
 .timeslot-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
     background: lightgrey;
-    grid-area: timeslot-container;
     justify-content: left;
 }
 
@@ -59,10 +68,11 @@
 }
 
 .booking-bubble-container {
+    grid-column-start: 2;
+    grid-column-end: -1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(18, 1fr);
-    grid-area: main;
     position: relative;
 }
 
@@ -96,3 +106,7 @@
     left: 0;
     z-index: 3;
 }
+
+.booking-form-container {
+    display: none;
+};
