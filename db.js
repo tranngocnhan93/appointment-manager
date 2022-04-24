@@ -1,10 +1,11 @@
 import { config } from './public/config.js';
+import { MongoClient } from 'mongodb/lib/mongo_client.js';
+import { ObjectId } from 'bson/lib/objectid.js';
 
-const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('bson').ObjectID;
 const dbname = config.db.name;
 const url = `mongodb://${config.db.host}:${config.db.port}`;
 const mongoOptions = {useNewUrlParser : true};
+
 
 const connectionStatus = {
     db : null
@@ -37,4 +38,4 @@ const getDB = () => {
     return connectionStatus.db;
 };
 
-module.exports = {getDB, getPrimaryKey, connect};
+export { getDB, getPrimaryKey, connect };

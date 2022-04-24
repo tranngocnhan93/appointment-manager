@@ -1,14 +1,19 @@
 import { config } from './public/config.js';
+import { getDB, getPrimaryKey, connect } from './db.js';
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const collection = config.db.collection;
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'))
-const path = require('path');
-const db = require('./db.js');
-const collection = config.db.collection;
 app.use(express.static('./methods-public'));
+
 
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname,'index.html'));
@@ -18,7 +23,7 @@ app.get('/timetable', (req,res) => {
 });
 
 app.get('/getAppointments', (req,res) => {
-    db.getDB().collection(collection).find({}).toArray((err,documents) => {
+    const db = getDB().collection(collection).find({}).toArray((err,documents) => {
         if(err)
             console.log(err);
         else {
@@ -31,7 +36,7 @@ app.get('/getAppointments', (req,res) => {
 app.post('/createAppointment', (req,res) => {
     const userInput = req.body;
     
-    db.getDB().collection(collection).insertOne(userInput, (err,result) => {
+    const db = getDB().collection(collection).insertOne(userInput, (err,result) => {
         if(err)
             console.log(err);
         else {
@@ -45,7 +50,8 @@ app.put('/update/:id', (req,res) => {
     const appointmentID = req.params.id;
     const userInput = req.body;
 
-    db.getDB().collection(collection).findOneAndUpdate({_id: db.getPrimaryKey(appointmentID)}, {$set : 
+    const db = getDB();
+    db.collection(collection).findOneAndUpdate({_id: getPrimaryKey(appointmentID)}, {$set : 
         {customer : userInput.customer, technician : userInput.technician, date : userInput.date, place : userInput.place}}, {returnOriginal : false}, (err, result) => {
         if(err)
             console.log(err);
@@ -58,7 +64,8 @@ app.put('/update/:id', (req,res) => {
 app.delete('/delete/:id', (req,res) => {
     const appointmentID = req.params.id;
 
-    db.getDB().collection(collection).findOneAndDelete({_id : db.getPrimaryKey(appointmentID)}, (err,result) => {
+    const db = getDB();
+    db.collection(collection).findOneAndDelete({_id : getPrimaryKey(appointmentID)}, (err,result) => {
         if(err)
             console.log(err);
         else {
@@ -67,7 +74,7 @@ app.delete('/delete/:id', (req,res) => {
     });
 });
 
-db.connect((err) => {
+const db = connect((err) => {
     if(err) {
         console.log('Unable to connect to database');
         process.exit(1);

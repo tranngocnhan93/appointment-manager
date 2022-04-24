@@ -1,6 +1,7 @@
 {
   "name": "appointment_manager",
   "version": "1.0.0",
+  "type": "module",
   "description": "Appointment managing app",
   "main": "app.js",
   "scripts": {

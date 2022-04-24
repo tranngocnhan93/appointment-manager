@@ -1,6 +1,5 @@
 import { config } from "./config.js";
 
-console.log("AQQQQQQQQ" + config.timetable.open_hour);
 
 const currentDate = new Date();
 let weekDays = [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]; // Sun - Sat
