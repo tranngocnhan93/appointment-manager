@@ -57,26 +57,17 @@ const isInWeek = (bookingDate) => {
     return retval;
 };
 
-const makeBooking = () => {
-    console.log("Booking made");
-    let bookingForm = document.getElementById("booking-form-container-id");
-    bookingForm.style.display = "block";
-};
-
-const addBookingButton = (bubble) => {
+const clickBubble = (bubble) => {
     return (event) => {
-        bubble.setAttribute("class", "booking-bubble-clicked");
-        
-        // Add booking button
-        if(bubble.querySelector(".booking-button") === null) {
-            let bookingButton = document.createElement("button");
-            bookingButton.setAttribute("class", "booking-button");
-            bookingButton.innerHTML = "Book";
-            bookingButton.addEventListener("click", makeBooking);
-            bubble.appendChild(bookingButton);
+        let bookingForm = document.getElementById("booking-form-container-id");
+        if(bookingForm.style.display != "block") {
+            bookingForm.style.display = "block";
+            bubble.setAttribute("class", "booking-bubble-clicked");
+            event.stopPropagation();    // So that the form is not hidden again by other bubbles' click outside
         }
-        else {
-            bubble.querySelector(".booking-button").style.display = "block";
+        else if(bookingForm.style.display == "block") {
+            bookingForm.style.display = "none";
+            bubble.setAttribute("class", "booking-bubble");
         }
     }
 };
@@ -89,7 +80,7 @@ const generateBookingBubble = (appointmentRecord) => {
             // Create a bubble on the timetable
             let bubble = document.createElement("div");
             bubble.setAttribute("class", "booking-bubble");
-            bubble.addEventListener("click", addBookingButton(bubble));
+            bubble.addEventListener("click", clickBubble(bubble));
             bubble.appendChild(document.createTextNode(bubbleDate.getHours() + ":" + (bubbleDate.getMinutes() == 0?"00":"30")));
             bubble.appendChild(document.createElement("br"));
             bubble.appendChild(document.createTextNode(appointmentRecord.technician));
@@ -137,11 +128,19 @@ renderCalendar();
 retrieveSchedule();
 
 document.addEventListener("click", function (event) {
+    let bookingForm = document.getElementById("booking-form-container-id");
+    let isClickedInsideForm = bookingForm.contains(event.target);
+    if(!isClickedInsideForm) {
+        if(bookingForm.style.display === "block") {
+            bookingForm.style.display = "none";
+        }
+    }
+
     let bubbles = document.querySelectorAll('[class="booking-bubble-clicked"]');
+    let isClickedInside;
     bubbles.forEach(bubble => {
-        let isClickedInside = bubble.contains(event.target);
-        if(!isClickedInside) {
-            bubble.querySelector(".booking-button").style.display = "none";
+        isClickedInside = bubble.contains(event.target);
+        if(!isClickedInside && !isClickedInsideForm) {
             bubble.setAttribute("class", "booking-bubble");
         }
     })

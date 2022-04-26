@@ -77,30 +77,31 @@
         </div>
 
         <div class="booking-bubble-container" id="bb-container">
+            <div class="booking-form-container" id="booking-form-container-id">
+                <form action="/createAppointment" method="post">
+                    <ul>
+                        <li>
+                            <label for="Date">Time:</label>
+                            <input type="text" id="Date" name="Date_db">
+                        </li>
+                        <li>
+                            <label for="technician">Technician Name:</label>
+                            <input type="text" id="technician" name="Technician_db">
+                        </li>
+                        <li>
+                            <label for="Customer">Customer Name:</label>
+                            <input type="text" id="Customer" name="Customer_db">
+                        </li>
+                        <li>
+                            <label for="Phone">Customer Phone:</label>
+                            <input type="text" id="Phone" name="Phone_db">
+                        </li>
+                    </ul>
+                </form>
+            </div>
         </div>
 
-        <div class="booking-form-container" id="booking-form-container-id">
-            <form action="/createAppointment" method="post">
-                <ul>
-                    <li>
-                        <label for="Date">Time:</label>
-                        <input type="text" id="Date" name="Date_db">
-                    </li>
-                    <li>
-                        <label for="technician">Technician Name:</label>
-                        <input type="text" id="technician" name="Technician_db">
-                    </li>
-                    <li>
-                        <label for="Customer">Customer Name:</label>
-                        <input type="text" id="Customer" name="Customer_db">
-                    </li>
-                    <li>
-                        <label for="Phone">Customer Phone:</label>
-                        <input type="text" id="Phone" name="Phone_db">
-                    </li>
-                </ul>
-            </form>
-        </div>
+        
 
 
     </div>
