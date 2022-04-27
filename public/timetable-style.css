@@ -102,7 +102,6 @@
 
 .booking-form-container {
     display: none;
-    /* visibility: hidden; */
     grid-column-start: 4;
     grid-column-end: 6;
     grid-row-start: 4;

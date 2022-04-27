@@ -100,10 +100,10 @@ const generateBookingBubble = (appointmentRecord) => {
 };
 
 const clearBookingBubbles = () => {
-    const bubbleContainer = document.getElementById("bb-container");
-    while(bubbleContainer.lastChild) {
-        bubbleContainer.removeChild(bubbleContainer.lastChild);
-    }
+    let bubbles = document.querySelectorAll('[class="booking-bubble"]');
+    bubbles.forEach(bubble => {
+        bubble.remove();
+    });
 };
 
 const retrieveSchedule = () => {
@@ -143,7 +143,7 @@ document.addEventListener("click", function (event) {
         if(!isClickedInside && !isClickedInsideForm) {
             bubble.setAttribute("class", "booking-bubble");
         }
-    })
+    });
 });
 document.querySelector(".prev").addEventListener("click", () => {
     weekNumber -= 1;
