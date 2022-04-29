@@ -11,6 +11,7 @@ const __dirname = dirname(__filename);
 const collection = config.db.collection;
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(express.static('public'))
 app.use(express.static('./methods-public'));
 

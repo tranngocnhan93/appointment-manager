@@ -81,21 +81,32 @@
                 <form action="/createAppointment" method="post">
                     <ul>
                         <li>
-                            <label for="Date">Time:</label>
-                            <input type="text" id="Date" name="Date_db">
+                            <label for="date-id">Time:</label>
+                            <input type="text" id="date-id" name="date">
                         </li>
                         <li>
-                            <label for="technician">Technician Name:</label>
-                            <input type="text" id="technician" name="Technician_db">
+                            <label for="technician-id">Technician Name:</label>
+                            <input type="text" id="technician-id" name="technician">
                         </li>
                         <li>
-                            <label for="Customer">Customer Name:</label>
-                            <input type="text" id="Customer" name="Customer_db">
+                            <label for="customer-id">Customer Name:</label>
+                            <input type="text" id="customer-id" name="customer">
                         </li>
                         <li>
+                            <label for="place-id">Customer Name:</label>
+                            <input type="text" id="place-id" name="place">
+                        </li>
+                        <!-- <li>
                             <label for="Phone">Customer Phone:</label>
                             <input type="text" id="Phone" name="Phone_db">
+                        </li> -->
+                        <li class="button">
+                            <button type="submit">Send message</button>
                         </li>
+                        <li class="button">
+                            <button type="button">Cancel</button>
+                        </li>
+                          
                     </ul>
                 </form>
             </div>
