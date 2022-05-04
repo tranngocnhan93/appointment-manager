@@ -105,7 +105,12 @@
     grid-column-start: 4;
     grid-column-end: 6;
     grid-row-start: 4;
-    grid-row-end: 7;
+    grid-row-end: 10;
     z-index: 3;
     background: lightgreen;
-};
+}
+
+.required-field::after {
+    content: '*';
+    color: red;
+}

@@ -78,30 +78,36 @@
 
         <div class="booking-bubble-container" id="bb-container">
             <div class="booking-form-container" id="booking-form-container-id">
-                <form action="/createAppointment" method="post">
+                <ul>
+                    <li>
+                        <p id="form-date"></p>
+                    </li>
+                    <li>
+                        <p id="form-time"></p>
+                    </li>
+                    <li>
+                        <p id="form-place"></p>
+                    </li>
+                    <li>
+                        <p id="form-technician"></p>
+                    </li>
+                </ul>
+
+                <form method="post" action="/createAppointment" id="booking-form-id">
                     <ul>
                         <li>
-                            <label for="date-id">Time:</label>
-                            <input type="text" id="date-id" name="date">
+                            <input type="hidden" id="bookingID" name="bookingID">
                         </li>
                         <li>
-                            <label for="technician-id">Technician Name:</label>
-                            <input type="text" id="technician-id" name="technician">
+                            <label class="required-field" for="customer">Customer:</label>
+                            <input type="text" id="customer" name="customer" placeholder="Enter your name" required>
                         </li>
                         <li>
-                            <label for="customer-id">Customer Name:</label>
-                            <input type="text" id="customer-id" name="customer">
+                            <label class="required-field" for="phone">Phone:</label>
+                            <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
                         </li>
-                        <li>
-                            <label for="place-id">Customer Name:</label>
-                            <input type="text" id="place-id" name="place">
-                        </li>
-                        <!-- <li>
-                            <label for="Phone">Customer Phone:</label>
-                            <input type="text" id="Phone" name="Phone_db">
-                        </li> -->
-                        <li class="button">
-                            <button type="submit">Send message</button>
+                        <li class="button" id="bookButtonID">
+                            <button type="submit">Book</button>
                         </li>
                         <li class="button">
                             <button type="button">Cancel</button>

@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const collection = config.db.collection;
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(express.static('./methods-public'));
 
@@ -53,7 +53,7 @@ app.put('/update/:id', (req,res) => {
 
     const db = getDB();
     db.collection(collection).findOneAndUpdate({_id: getPrimaryKey(appointmentID)}, {$set : 
-        {customer : userInput.customer, technician : userInput.technician, date : userInput.date, place : userInput.place}}, {returnOriginal : false}, (err, result) => {
+        {customer : userInput.customer, phone : userInput.phone}}, {returnOriginal : false}, (err, result) => {
         if(err)
             console.log(err);
         else
