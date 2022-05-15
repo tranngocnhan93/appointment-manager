@@ -1,0 +1,4 @@
+timetable: scale number of timetable rows according to open and close hour
+timetable - db: query and render entries only within a window of a weektime
+timetable: async function for fetch request
+db: data model (schema) ex: mongoose.model
