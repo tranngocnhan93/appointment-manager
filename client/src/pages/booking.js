@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
 
-const Booking = () => {
+export default function Booking () {
+    const [records, setRecords] = useState([]);
+    useEffect(() => {
+        async function getRecords() {
+            const response = await fetch(`http://localhost:3000/getAppointments`);
+
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+
+            const recordResponse = await response.json();
+            setRecords(recordResponse);
+            console.log(records);
+        }
+        getRecords();
+    }, [records.length]);
     return (
         <div
             style={{
@@ -15,4 +33,4 @@ const Booking = () => {
     );
 };
 
-export default Booking;
+
