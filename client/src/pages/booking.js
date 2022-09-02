@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
+import React, { useEffect, useState } from "react";
+import BookingCSS from "./styles/Booking.css"
+import Day from "../components/Day"
+import TimeFrameColumn from "../components/TimeFrameColumn"
 
 export default function Booking () {
     const [records, setRecords] = useState([]);
@@ -20,15 +22,21 @@ export default function Booking () {
         getRecords();
     }, [records.length]);
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'Right',
-                alignItems: 'Right',
-                height: '100vh'
-            }}
-        >
-            <h1>Welcome to Booking Calendar</h1>
+        <div>
+            <div className="calendar-container">
+                <div className="time-frame-column">
+                    <TimeFrameColumn openTime={8} closeTime={17} slotTime={0.5}/>
+                </div>
+                <div className="day-container">
+                    <Day day="Monday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Tuesday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Wednesday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Thursday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Friday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Saturday" openTime={8} closeTime={17} slotTime={0.5} />
+                    <Day day="Sunday" openTime={8} closeTime={17} slotTime={0.5} />
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,16 @@
+.calendar-container {
+    display: flex;
+    background-color: #F5F5F5;
+    position: absolute;
+    width: 70%;
+    height: 700px;
+    margin-left: 15%;
+    margin-top: 30px;
+    border-radius: 8px;
+    align-content: center;
+    justify-content: center;
+}
+
+.day-container {
+    display: flex;
+}

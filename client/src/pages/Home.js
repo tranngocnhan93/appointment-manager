@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Blogs = () => {
+export default function Home() {
     return (
         <div
             style={{
@@ -10,9 +10,8 @@ const Blogs = () => {
                 height: '100vh'
             }}
         >
-            <h1>Welcome to Blogs</h1>
+            <h1>Welcome to My App</h1>
         </div>
     );
 };
 
-export default Blogs;
