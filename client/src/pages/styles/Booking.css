@@ -1,16 +1,75 @@
 .calendar-container {
     display: flex;
+    flex-direction: column;
     background-color: #F5F5F5;
     position: absolute;
     width: 70%;
-    height: 700px;
+    height: 900px;
     margin-left: 15%;
     margin-top: 30px;
     border-radius: 8px;
+    align-items: center;
+}
+
+.nav-week-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.timetable-container {
+    display: flex;
     align-content: center;
     justify-content: center;
+    height: 700px;
+    width: 1200px;
 }
 
 .day-container {
     display: flex;
+}
+
+.prev-week-button {
+    rotate: -45deg;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    float: left;
+    margin-right: 80px;
+    margin-top: 300px;
+    background: #29906d;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.prev-week-button:after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    background: #f5f5f5;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+}
+
+.next-week-button {
+    rotate: 135deg;
+    width: 50px;
+    height: 50px; 
+    float: left;
+    margin-left: 80px;
+    margin-top: 300px;
+    background: #29906d;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.next-week-button:after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    background: #f5f5f5;
+    position: absolute;
+    left: 3px;
+    top: 3px;
 }
