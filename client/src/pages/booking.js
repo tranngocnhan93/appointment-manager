@@ -50,7 +50,6 @@ export default function Booking() {
         })
         )
     }
-    console.log("AAA")
     function calculateWeekNumber() {
         const currentDate = weekDays[0].weekDate
         const startDate = new Date(currentDate.getFullYear(), 0, 1);
