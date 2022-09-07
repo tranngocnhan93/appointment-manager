@@ -5,14 +5,16 @@ import TimeFrameColumn from "../components/TimeFrameColumn"
 import TechnicianSelector from "../components/TechnicianSelector";
 
 export default function Booking() {
+    const today = new Date();
+    const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
-    const [weekDays, setWeekDays] = useState([{weekDay: "Mon", weekDate: new Date()},
-                                              {weekDay: "Tue", weekDate: new Date(Date.now() + (3600 * 1000 * 24))},
-                                              {weekDay: "Wed", weekDate: new Date(Date.now() + (3600 * 2000 * 24))},
-                                              {weekDay: "Thu", weekDate: new Date(Date.now() + (3600 * 3000 * 24))},
-                                              {weekDay: "Fri", weekDate: new Date(Date.now() + (3600 * 4000 * 24))},
-                                              {weekDay: "Sat", weekDate: new Date(Date.now() + (3600 * 5000 * 24))},
-                                              {weekDay: "Sun", weekDate: new Date(Date.now() + (3600 * 6000 * 24))},
+    const [weekDays, setWeekDays] = useState([{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
+                                              {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
+                                              {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
+                                              {weekDay: "Thu", weekDate: new Date(today.setDate(monDate + 3))},
+                                              {weekDay: "Fri", weekDate: new Date(today.setDate(monDate + 4))},
+                                              {weekDay: "Sat", weekDate: new Date(today.setDate(monDate + 5))},
+                                              {weekDay: "Sun", weekDate: new Date(today.setDate(monDate + 6))},
                                             ]);
     
     useEffect(() => {
