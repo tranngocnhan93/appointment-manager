@@ -33,11 +33,12 @@ app.get('/timetable', (req,res) => {
 });
 
 app.get('/getAppointments', (req,res) => {
-    const db = getDB().collection(collection).find({}).toArray((err,documents) => {
+    const startTime = req.query.start_time;
+    const endTime = req.query.end_time;
+    const db = getDB().collection(collection).find({date: {$gte: startTime, $lt: endTime}}).toArray((err,documents) => {
         if(err)
             console.log(err);
         else {
-            console.log(documents);
             res.json(documents);
         }
     });

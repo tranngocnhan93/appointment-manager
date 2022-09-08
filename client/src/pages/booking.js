@@ -19,7 +19,17 @@ export default function Booking() {
     
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`http://localhost:3000/getAppointments`);
+            let startTime = weekDays[0].weekDate;
+            startTime.setUTCHours(0);
+            startTime.setUTCMinutes(0);
+            startTime.setUTCSeconds(0);
+            startTime.setUTCMilliseconds(0);
+            let endTime = weekDays[6].weekDate;
+            endTime.setUTCHours(23);
+            endTime.setUTCMinutes(59);
+            endTime.setUTCSeconds(59);
+            endTime.setUTCMilliseconds(0);
+            const response = await fetch(`http://localhost:3000/getAppointments?start_time=${startTime.toISOString()}&end_time=${endTime.toISOString()}`);
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
