@@ -19,12 +19,12 @@ export default function Booking() {
     
     useEffect(() => {
         async function getRecords() {
-            let startTime = weekDays[0].weekDate;
+            let startTime = new Date(weekDays[0].weekDate);
             startTime.setUTCHours(0);
             startTime.setUTCMinutes(0);
             startTime.setUTCSeconds(0);
             startTime.setUTCMilliseconds(0);
-            let endTime = weekDays[6].weekDate;
+            let endTime = new Date(weekDays[6].weekDate);
             endTime.setUTCHours(23);
             endTime.setUTCMinutes(59);
             endTime.setUTCSeconds(59);
