@@ -7,6 +7,7 @@ import TechnicianSelector from "../components/TechnicianSelector";
 export default function Booking() {
     const today = new Date();
     const monDate = today.getDate() - today.getDay() + 1;
+    const [butt, setButt] = useState(0);
     const [records, setRecords] = useState([]);
     const [weekDays, setWeekDays] = useState([{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
                                               {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
@@ -41,7 +42,8 @@ export default function Booking() {
             setRecords(recordResponse);
         }
         getRecords();
-    }, [records.length]);
+        console.log("requested server")
+    }, [butt]);
 
     function toPrevWeek() {
         setWeekDays(prevDays => prevDays.map(day => {
@@ -51,6 +53,7 @@ export default function Booking() {
             }
         })
         )
+        setButt(prev => prev=prev - 1)
     }
 
     function toNextWeek() {
@@ -61,6 +64,7 @@ export default function Booking() {
             }
         })
         )
+        setButt(prev => prev = prev + 1)
     }
     function calculateWeekNumber() {
         const currentDate = weekDays[0].weekDate
@@ -70,8 +74,18 @@ export default function Booking() {
         return weekNumber;
     };
 
-    const populatedDays = weekDays.map(item => <Day day={`${item.weekDay} ${item.weekDate.getDate()}-${item.weekDate.getMonth()+1}`}
-                                                    key={item.weekDay} openTime={8} closeTime={17} slotTime={0.5}/>)
+    const populatedDays = weekDays.map(item => {
+        let tempArray = [];
+        for(let i = 0; i < records.length; i++) {
+            let tempDay = new Date(records[i].date).getDay();
+            if( tempDay === item.weekDate.getDay()) {
+                tempArray.push(records[i])
+            }
+        }
+        return <Day day={`${item.weekDay} ${item.weekDate.getDate()}-${item.weekDate.getMonth()+1}`}
+                    key={item.weekDay} openTime={8} closeTime={17} slotTime={0.5} appointments={tempArray}/>
+        }
+    )
 
     return (
         <div>
