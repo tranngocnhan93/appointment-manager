@@ -22,7 +22,8 @@ export default function Day(props) {
     return (
         <div className={DayCSS.container}>
             <div className={DayCSS.dayTile}>{props.day}</div>
-            {timeSlotsArray.map(item => <div className={item.appointments.length ? DayCSS.timeTileAppointment : DayCSS.timeTile} key={item.id} >{item.slotTime}</div>)}
+            {timeSlotsArray.map(item => <div className={item.appointments.length ? DayCSS.timeTileAppointment : DayCSS.timeTile}key={item.id}>
+                {item.appointments.length ? "Book" : "-"}</div>)}
         </div>
     )
 }

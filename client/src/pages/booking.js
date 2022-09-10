@@ -9,12 +9,12 @@ export default function Booking() {
     const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
-                         {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
-                         {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
-                         {weekDay: "Thu", weekDate: new Date(today.setDate(monDate + 3))},
-                         {weekDay: "Fri", weekDate: new Date(today.setDate(monDate + 4))},
-                         {weekDay: "Sat", weekDate: new Date(today.setDate(monDate + 5))},
-                         {weekDay: "Sun", weekDate: new Date(today.setDate(monDate + 6))},]
+                                  {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
+                                  {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
+                                  {weekDay: "Thu", weekDate: new Date(today.setDate(monDate + 3))},
+                                  {weekDay: "Fri", weekDate: new Date(today.setDate(monDate + 4))},
+                                  {weekDay: "Sat", weekDate: new Date(today.setDate(monDate + 5))},
+                                  {weekDay: "Sun", weekDate: new Date(today.setDate(monDate + 6))},]
     
     function timetableDayReducer(state, action) {
         switch (action.type) {
@@ -66,23 +66,24 @@ export default function Booking() {
     }, [timetableDays]);
 
     function calculateWeekNumber() {
-        const currentDate = timetableDays[0].weekDate
+        const currentDate = new Date(timetableDays[0].weekDate);
         const startDate = new Date(currentDate.getFullYear(), 0, 1);
         const days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
         const weekNumber = Math.ceil((currentDate.getDay() + 1 + days) / 7);
         return weekNumber;
     };
 
-    const populatedDays = timetableDays.map(item => {
+    const renderedDays = timetableDays.map(timetableDay => {
+        // Passing appointments in a specific day as props to corresponding day element
         let tempArray = [];
         for(let i = 0; i < records.length; i++) {
             let tempDay = new Date(records[i].date).getDay();
-            if( tempDay === item.weekDate.getDay()) {
+            if( tempDay === timetableDay.weekDate.getDay()) {
                 tempArray.push(records[i])
             }
         }
-        return <Day day={`${item.weekDay} ${item.weekDate.getDate()}-${item.weekDate.getMonth()+1}`}
-                    key={item.weekDay} openTime={8} closeTime={17} slotTime={0.5} appointments={tempArray}/>
+        return <Day day={`${timetableDay.weekDay} ${timetableDay.weekDate.getDate()}-${timetableDay.weekDate.getMonth()+1}`}
+                    key={timetableDay.weekDay} openTime={8} closeTime={17} slotTime={0.5} appointments={tempArray}/>
         }
     )
 
@@ -100,7 +101,7 @@ export default function Booking() {
                         <TimeFrameColumn openTime={8} closeTime={17} slotTime={0.5} />
                     </div>
                     <div className="day-container">
-                        {populatedDays}
+                        {renderedDays}
                     </div>
                     <button className="next-week-button" onClick={() => dispatch({type: "toNextWeek"})}>Next Week</button>
                 </div>
