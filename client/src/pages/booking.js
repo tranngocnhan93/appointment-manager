@@ -93,7 +93,7 @@ export default function Booking() {
         let tempArray = [];
         for (let i = 0; i < records.length; i++) {
             let tempDay = new Date(records[i].date).getDay();
-            if (tempDay === timetableDay.weekDate.getDay()) {
+            if (tempDay === timetableDay.weekDate.getDay() && (records[i].technician === technician || technician === "All technicians")) {
                 tempArray.push(records[i])
             }
         }
