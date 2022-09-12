@@ -10,7 +10,7 @@ export default function TechnicianSelector(props) {
         setIsClick(prevClick => !prevClick)
     }
 
-    const renderTechinicans = props.technicians.map(technician => {
+    const renderTechnicians = props.technicians.map(technician => {
         return (
             <li className="option"
                 onClick={(event) => {
@@ -28,11 +28,11 @@ export default function TechnicianSelector(props) {
     return (
         <div className={isClicked ? "select--menu active" : "select--menu"}>
             <div className="select--button" onClick={handleMenuClick}>
-                <span className="select--button--text">{technician}</span>
+                <span className="select--button--text">{renderTechnicians.length ? technician : "Not available"}</span>
                 <i className={isClicked ? "select--button--arrow active" : "select--button--arrow"}></i>
             </div>
             <ul className="options">
-                {renderTechinicans}
+                {renderTechnicians}
             </ul>
             
         </div>
