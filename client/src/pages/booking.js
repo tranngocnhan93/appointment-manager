@@ -8,6 +8,7 @@ export default function Booking() {
     const today = new Date();
     const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
+    const [technician, setTechnician] = useState("");
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
                                   {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
                                   {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
@@ -15,6 +16,7 @@ export default function Booking() {
                                   {weekDay: "Fri", weekDate: new Date(today.setDate(monDate + 4))},
                                   {weekDay: "Sat", weekDate: new Date(today.setDate(monDate + 5))},
                                   {weekDay: "Sun", weekDate: new Date(today.setDate(monDate + 6))},]
+    const [timetableDays, dispatch] = useReducer(timetableDayReducer, initialTimetableDays);
     
     function timetableDayReducer(state, action) {
         switch (action.type) {
@@ -37,7 +39,6 @@ export default function Booking() {
         }
     }
 
-    const [timetableDays, dispatch] = useReducer(timetableDayReducer, initialTimetableDays);
 
     useEffect(() => {
         async function getRecords() {
@@ -73,12 +74,26 @@ export default function Booking() {
         return weekNumber;
     };
 
+    function filterTechnician(paramTechnician) {
+        setTechnician(paramTechnician);
+    }
+
+    function getTechnicianList() {
+        let technicianList = [];
+        for (let i = 0; i < records.length; i++) {
+            if(!technicianList.includes(records[i].technician)) {
+                technicianList.push(records[i].technician);
+            }
+        }
+        return technicianList;
+    }
+
     const renderedDays = timetableDays.map(timetableDay => {
         // Passing appointments in a specific day as props to corresponding day element
         let tempArray = [];
-        for(let i = 0; i < records.length; i++) {
+        for (let i = 0; i < records.length; i++) {
             let tempDay = new Date(records[i].date).getDay();
-            if( tempDay === timetableDay.weekDate.getDay()) {
+            if (tempDay === timetableDay.weekDate.getDay()) {
                 tempArray.push(records[i])
             }
         }
@@ -93,7 +108,7 @@ export default function Booking() {
                 <div className="nav-week-container">
                     <h2 className="nav-week-number">Week {calculateWeekNumber()} -&nbsp;</h2>
                     <h2 className="nav-week-year">{timetableDays[0].weekDate.getFullYear()}</h2>
-                    <TechnicianSelector className="nav-week-technician-selector"/>
+                    <TechnicianSelector className="nav-week-technician-selector" handleClick={filterTechnician} technicians={getTechnicianList()}/>
                 </div>
                 <div className="timetable-container">
                     <button className="prev-week-button" onClick={() => dispatch({type: "toPrevWeek"})}>Prev Week</button>
