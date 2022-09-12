@@ -43,15 +43,15 @@ export default function Booking() {
     useEffect(() => {
         async function getRecords() {
             let startTime = new Date(timetableDays[0].weekDate);
-            startTime.setUTCHours(0);
-            startTime.setUTCMinutes(0);
-            startTime.setUTCSeconds(0);
-            startTime.setUTCMilliseconds(0);
+            startTime.setHours(0);
+            startTime.setMinutes(0);
+            startTime.setSeconds(0);
+            startTime.setMilliseconds(0);
             let endTime = new Date(timetableDays[6].weekDate);
-            endTime.setUTCHours(23);
-            endTime.setUTCMinutes(59);
-            endTime.setUTCSeconds(59);
-            endTime.setUTCMilliseconds(0);
+            endTime.setHours(23);
+            endTime.setMinutes(59);
+            endTime.setSeconds(59);
+            endTime.setMilliseconds(0);
             const response = await fetch(`http://localhost:3000/getAppointments?start_time=${startTime.toISOString()}&end_time=${endTime.toISOString()}`);
 
             if (!response.ok) {
