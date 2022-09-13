@@ -12,7 +12,7 @@ export default function TechnicianSelector(props) {
 
     const renderTechnicians = props.technicians.map(technician => {
         return (
-            <li className="option"
+            <li className={isClicked ? "option" : "option hide"}
                 onClick={(event) => {
                     props.handleClick(event.target.textContent)
                     setIsClick(prevClick => !prevClick);
@@ -27,7 +27,7 @@ export default function TechnicianSelector(props) {
     })
 
     const allTechnicianOption = (
-        <li className="option"
+        <li className={isClicked ? "option" : "option hide"}
             onClick={(event) => {
                 props.handleClick(event.target.textContent)
                 setIsClick(prevClick => !prevClick);
@@ -46,7 +46,7 @@ export default function TechnicianSelector(props) {
                 <span className="select--button--text">{renderTechnicians.length ? technician : "Not available"}</span>
                 <i className={isClicked ? "select--button--arrow active" : "select--button--arrow"}></i>
             </div>
-            <ul className="options">
+            <ul className={isClicked ? "options" : "options hide"}>
                 {renderTechnicians.length > 0 && allTechnicianOption}
                 {renderTechnicians}
             </ul>

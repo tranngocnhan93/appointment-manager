@@ -90,6 +90,10 @@
     -webkit-animation-fill-mode: both;
 }
 
+.options.hide .option.hide {
+    display: none;
+}
+
 @keyframes fadeInUp {
     from {
         transform: translate3d(0, 30px, 0);
