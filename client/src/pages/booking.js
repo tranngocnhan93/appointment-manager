@@ -3,12 +3,14 @@ import "./styles/Booking.css"
 import Day from "../components/Day"
 import TimeFrameColumn from "../components/TimeFrameColumn"
 import TechnicianSelector from "../components/TechnicianSelector";
+import BookingForm from "../components/BookingForm";
 
 export default function Booking() {
     const today = new Date();
     const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
     const [technician, setTechnician] = useState("");
+    const [formVisual, setFormVisual] = [false];
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
                                   {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
                                   {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
@@ -88,6 +90,10 @@ export default function Booking() {
         return technicianList;
     }
 
+    function showBookingForm(paramObject) {
+
+    }
+
     const renderedDays = timetableDays.map(timetableDay => {
         // Passing appointments in a specific day as props to corresponding day element
         let tempArray = [];
@@ -119,6 +125,7 @@ export default function Booking() {
                         {renderedDays}
                     </div>
                     <button className="next-week-button" onClick={() => dispatch({type: "toNextWeek"})}>Next Week</button>
+                    {formVisual ? <BookingForm handleClick={showBookingForm}/> : null}
                 </div>
             </div>
         </div>
