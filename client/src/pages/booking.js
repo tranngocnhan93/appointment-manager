@@ -90,8 +90,13 @@ export default function Booking() {
         return technicianList;
     }
 
-    function showBookingForm(paramObject) {
-
+    function showBookingForm(param) {
+        for (let i = 0; i < records.length; i++) {
+            if (param === records[i].date) {
+                console.log("showed booking form")
+                console.log(records[i])
+            }
+        }
     }
 
     const renderedDays = timetableDays.map(timetableDay => {
@@ -104,7 +109,12 @@ export default function Booking() {
             }
         }
         return <Day day={`${timetableDay.weekDay} ${timetableDay.weekDate.getDate()}-${timetableDay.weekDate.getMonth()+1}`}
-                    key={timetableDay.weekDay} openTime={8} closeTime={17} slotTime={0.5} apmTime={tempArray}/>
+                    key={timetableDay.weekDay}
+                    openTime={8}
+                    closeTime={17}
+                    slotTime={0.5}
+                    apmTimes={tempArray}
+                    handleClick={showBookingForm}/>
         }
     )
 
