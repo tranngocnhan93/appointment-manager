@@ -100,11 +100,11 @@ export default function Booking() {
         for (let i = 0; i < records.length; i++) {
             let tempDay = new Date(records[i].date).getDay();
             if (tempDay === timetableDay.weekDate.getDay() && (records[i].technician === technician || technician === "All technicians")) {
-                tempArray.push(records[i])
+                tempArray.push(records[i].date)
             }
         }
         return <Day day={`${timetableDay.weekDay} ${timetableDay.weekDate.getDate()}-${timetableDay.weekDate.getMonth()+1}`}
-                    key={timetableDay.weekDay} openTime={8} closeTime={17} slotTime={0.5} appointments={tempArray}/>
+                    key={timetableDay.weekDay} openTime={8} closeTime={17} slotTime={0.5} apmTime={tempArray}/>
         }
     )
 

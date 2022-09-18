@@ -1,4 +1,7 @@
-1. at 1:30 am 12/9/2022, timetable uses local time for week dates while server URL uses UTC time.
+1. Bug: at 1:30 am 12/9/2022, timetable uses local time for week dates while server URL uses UTC time.
    This makes appointment ID 631a4fcae028a1413c8a71a7 which is on Sunday week 36 to be rendered on Sunday week 37
-2. On booking page, when clicking on the area of the Technician Selector button's options, eventhough the options component is inactive,
+2. Bug: On booking page, when clicking on the area of the Technician Selector button's options, eventhough the options component is inactive,
    it is still rendered, and the option where the click happens is selected.
+3. Task: Change the design to passing only appointment times from booking page to Day component since passing the whole records objects
+   is not neccessary. Then a time slot in Day component is clicked, the time slot id is passed upwards to booking page. Then booking page
+   pops up the booking modal and renders info from the record object based on the time slot id.
