@@ -10,7 +10,7 @@ export default function Booking() {
     const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
     const [technician, setTechnician] = useState("");
-    const [formVisual, setFormVisual] = [false];
+    const [formIsOpen, setFormIsOpen] = useState(false);
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
                                   {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
                                   {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
@@ -97,6 +97,7 @@ export default function Booking() {
                 console.log(records[i])
             }
         }
+        setFormIsOpen(true);
     }
 
     const renderedDays = timetableDays.map(timetableDay => {
@@ -135,7 +136,7 @@ export default function Booking() {
                         {renderedDays}
                     </div>
                     <button className="next-week-button" onClick={() => dispatch({type: "toNextWeek"})}>Next Week</button>
-                    {formVisual ? <BookingForm handleClick={showBookingForm}/> : null}
+                    <BookingForm isOpen={formIsOpen} closeForm={() => setFormIsOpen(false)}/>
                 </div>
             </div>
         </div>

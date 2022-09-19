@@ -30,11 +30,11 @@ export default function Day(props) {
             <div className={DayCSS.dayTile}>{props.day}</div>
             {timeSlotsArray.map((item,key) => (
                 <div
-                    className={item.apmTime != undefined ? DayCSS.timeTileAppointment : DayCSS.timeTile}
+                    className={item.apmTime !== undefined ? DayCSS.timeTileAppointment : DayCSS.timeTile}
                     onClick={event => handleClick(event, key)}
                     key={key}
                 >
-                    {item.apmTime != undefined ? "Book" : "-"}
+                    {item.apmTime !== undefined ? "Book" : "-"}
                 </div>
             ))}
         </div>
