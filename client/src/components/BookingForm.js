@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom"
 import "./styles/BookingForm.css"
+import TechnicianSelector from "./TechnicianSelector";
 
 function handleSubmit() {
     console.log("submit")
@@ -17,6 +18,9 @@ export default function BookingForm(props) {
             <div className="booking--form--container">
                 <form className="booking--form" onSubmit={handleSubmit}>
                     <button className="form--close" onClick={props.closeForm}>x</button>
+                    <div id="technician--selector">
+                        <TechnicianSelector isInBookingForm={true} technicians={["celeste", "gwen"]}/>
+                    </div>
                     <input 
                         type="name" 
                         placeholder="Enter your name"

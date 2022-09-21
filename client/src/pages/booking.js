@@ -125,7 +125,7 @@ export default function Booking() {
                 <div className="nav-week-container">
                     <h2 className="nav-week-number">Week {calculateWeekNumber()} -&nbsp;</h2>
                     <h2 className="nav-week-year">{timetableDays[0].weekDate.getFullYear()}</h2>
-                    <TechnicianSelector className="nav-week-technician-selector" handleClick={filterTechnician} technicians={getTechnicianList()}/>
+                    <TechnicianSelector isInBookingForm={false} handleClick={filterTechnician} technicians={getTechnicianList()}/>
                 </div>
                 <div className="timetable-container">
                     <button className="prev-week-button" onClick={() => dispatch({type: "toPrevWeek"})}>Prev Week</button>

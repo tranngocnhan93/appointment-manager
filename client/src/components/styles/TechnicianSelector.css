@@ -1,14 +1,14 @@
-.select--menu {
+.container {
     max-width: 330px;
     margin: 0 0 0 20px;
 }
 
-.select--menu .select--button {
+.container .select--button {
     display: flex;
     width: 180px;
-    height: 10px;
+    height: 30px;
     background: #fff;
-    padding: 20px;
+    padding: 10px 20px 10px 20px;
     font-size: 18px;
     font-weight: 400;
     border-radius: 8px;
@@ -18,7 +18,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.select--menu .options {
+.container .options {
     position: absolute;
     width: 200px;
     overflow-y: auto;
@@ -36,7 +36,7 @@
     -webkit-animation-fill-mode: both;
 }
 
-.select--menu .options .option {
+.container .options .option {
     display: flex;
     height: 45px;
     cursor: pointer;
@@ -46,26 +46,20 @@
     background: #fff;
 }
 
-.select--menu .options .option:hover {
+.container .options .option:hover {
     background: #f2f2f2;
 }
 
-.select--menu .options .option i {
-    font-size: 25px;
-    margin-right: 12px;
-}
-
-.select--menu .options .option .option--text {
+.container .options .option .option--text {
     font-size: 18px;
     color: #333;
 }
 
 .select--button i {
-    font-size: 25px;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
-.select--button--arrow {
+.button--arrow {
     border: solid black;
     border-width: 0 2px 2px 0;
     display: inline-block;
@@ -74,11 +68,11 @@
     margin-left: 20px;
 }
 
-.select--button--arrow.active {
+.button--arrow.active {
     rotate: -135deg;
 }
 
-.select--menu.active .options {
+.container.active .options {
     display: block;
     opacity: 0;
     z-index: 10;
@@ -92,6 +86,27 @@
 
 .options.hide .option.hide {
     display: none;
+}
+
+.container.in--booking--form {
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
+    padding: 0px;
+    font-size: 12px;
+}
+
+.select--button.in--booking--form {
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
+    padding: 0px;
+    font-size: 14px;
+}
+
+.button--arrow.in--booking--form {
+    border-width: 0 1px 1px 0;
+    margin-right: 20px;
 }
 
 @keyframes fadeInUp {

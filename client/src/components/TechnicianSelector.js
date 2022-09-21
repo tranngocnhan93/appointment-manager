@@ -5,12 +5,13 @@ import "./styles/TechnicianSelector.css"
 export default function TechnicianSelector(props) {
     const [isClicked, setIsClick] = useState(false)
     const [technician, setTechnician] = useState("Select technician")
+    const {isInBookingForm, technicians} = props;
 
     function handleMenuClick() {
         setIsClick(prevClick => !prevClick)
     }
 
-    const renderTechnicians = props.technicians.map(technician => {
+    const renderTechnicians = technicians.map(technician => {
         return (
             <li className={isClicked ? "option" : "option hide"}
                 onClick={(event) => {
@@ -41,10 +42,12 @@ export default function TechnicianSelector(props) {
     )
 
     return (
-        <div className={isClicked ? "select--menu active" : "select--menu"}>
-            <div className="select--button" onClick={handleMenuClick}>
-                <span className="select--button--text">{renderTechnicians.length ? technician : "Not available"}</span>
-                <i className={isClicked ? "select--button--arrow active" : "select--button--arrow"}></i>
+        <div className={`container ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "active" : ""}`}>
+            <div className={`select--button ${isInBookingForm ? "in--booking--form" : ""}`}
+                 onClick={handleMenuClick}
+            >
+                <span className="button--text">{renderTechnicians.length ? technician : "Not available"}</span>
+                <i className={`button--arrow ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "active" : ""}`}></i>
             </div>
             <ul className={isClicked ? "options" : "options hide"}>
                 {renderTechnicians.length > 0 && allTechnicianOption}
