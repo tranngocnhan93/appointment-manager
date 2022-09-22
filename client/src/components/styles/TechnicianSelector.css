@@ -93,7 +93,6 @@
     height: 100%;
     margin-left: 0px;
     padding: 0px;
-    font-size: 12px;
 }
 
 .select--button.in--booking--form {
@@ -104,9 +103,27 @@
     font-size: 14px;
 }
 
+.button--text.in--booking--form {
+    padding-left: 10px;
+}
+
 .button--arrow.in--booking--form {
     border-width: 0 1px 1px 0;
     margin-right: 20px;
+}
+
+
+.options.in--booking--form {
+    padding: 10px;
+}
+
+.options.in--booking--form .option.in--booking--form {
+    padding: 0px;
+}
+
+.options.in--booking--form .option.in--booking--form .option--text.in--booking--form {
+    font-size: 14px;
+    padding: 0px;
 }
 
 @keyframes fadeInUp {

@@ -13,7 +13,7 @@ export default function TechnicianSelector(props) {
 
     const renderTechnicians = technicians.map(technician => {
         return (
-            <li className={isClicked ? "option" : "option hide"}
+            <li className={`option ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`}
                 onClick={(event) => {
                     props.handleClick(event.target.textContent)
                     setIsClick(prevClick => !prevClick);
@@ -22,7 +22,7 @@ export default function TechnicianSelector(props) {
                 key={technician}
             >
                 <i className="bx"></i>
-                <span className="option--text">{technician}</span>
+                <span className={`option--text ${isInBookingForm ? "in--booking--form" : ""}`}>{technician}</span>
             </li>
         )
     })
@@ -41,16 +41,21 @@ export default function TechnicianSelector(props) {
         </li>
     )
 
+    console.log(`options ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`)
+    console.log(`option--text ${isInBookingForm ? "in--booking--form" : ""}`)
+    console.log(`option ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`)
     return (
         <div className={`container ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "active" : ""}`}>
             <div className={`select--button ${isInBookingForm ? "in--booking--form" : ""}`}
                  onClick={handleMenuClick}
             >
-                <span className="button--text">{renderTechnicians.length ? technician : "Not available"}</span>
+                <span className={`button--text ${isInBookingForm ? "in--booking--form" : ""}`}>
+                    {renderTechnicians.length ? technician : "Not available"}
+                </span>
                 <i className={`button--arrow ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "active" : ""}`}></i>
             </div>
-            <ul className={isClicked ? "options" : "options hide"}>
-                {renderTechnicians.length > 0 && allTechnicianOption}
+            <ul className={`options ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`}>
+                {(renderTechnicians.length > 0) && !isInBookingForm && allTechnicianOption}
                 {renderTechnicians}
             </ul>
 
