@@ -41,9 +41,6 @@ export default function TechnicianSelector(props) {
         </li>
     )
 
-    console.log(`options ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`)
-    console.log(`option--text ${isInBookingForm ? "in--booking--form" : ""}`)
-    console.log(`option ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "" : "hide"}`)
     return (
         <div className={`container ${isInBookingForm ? "in--booking--form" : ""} ${isClicked ? "active" : ""}`}>
             <div className={`select--button ${isInBookingForm ? "in--booking--form" : ""}`}

@@ -10,7 +10,7 @@ export default function Booking() {
     const monDate = today.getDate() - today.getDay() + 1;
     const [records, setRecords] = useState([]);
     const [technician, setTechnician] = useState("");
-    const [formIsOpen, setFormIsOpen] = useState(false);
+    const [bookingFormData, setBookingFormData] = useState({isOpen: false, data: []});
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
                                   {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
                                   {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
@@ -91,15 +91,24 @@ export default function Booking() {
     }
 
     function showBookingForm(param) {
+        let formData = {isOpen: true, data: []};
         for (let i = 0; i < records.length; i++) {
-            if (param === records[i].date) {
-                console.log("showed booking form")
-                console.log(records[i])
+            if ((records[i].date === param) && ((records[i].technician === technician) || (technician === "All technicians"))) {
+                formData.data.push({technician: records[i].technician, date: records[i].date});
             }
         }
-        setFormIsOpen(true);
+        setBookingFormData(formData);
     }
 
+    function hideBookingForm() {
+        setBookingFormData(prev => {
+            return {
+                ...prev,
+                isOpen: false
+            }
+        })
+    }
+    
     const renderedDays = timetableDays.map(timetableDay => {
         // Passing appointments in a specific day as props to corresponding day element
         let tempArray = [];
@@ -136,7 +145,7 @@ export default function Booking() {
                         {renderedDays}
                     </div>
                     <button className="next-week-button" onClick={() => dispatch({type: "toNextWeek"})}>Next Week</button>
-                    <BookingForm isOpen={formIsOpen} closeForm={() => setFormIsOpen(false)}/>
+                    <BookingForm isOpen={bookingFormData.isOpen} closeForm={() => hideBookingForm()} data={bookingFormData.data}/>
                 </div>
             </div>
         </div>

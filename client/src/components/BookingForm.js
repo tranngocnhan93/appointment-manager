@@ -12,6 +12,11 @@ export default function BookingForm(props) {
         return null;
     }
 
+    const technicians = props.data.map(item => {
+        return item.technician
+        }
+    )
+
     return ReactDom.createPortal(
         <>
             <div className="backdrop" onClick={props.closeForm}></div>
@@ -19,8 +24,9 @@ export default function BookingForm(props) {
                 <form className="booking--form" onSubmit={handleSubmit}>
                     <button className="form--close" onClick={props.closeForm}>x</button>
                     <div id="technician--selector">
-                        <TechnicianSelector isInBookingForm={true} technicians={["celeste", "gwen"]}/>
+                        <TechnicianSelector isInBookingForm={true} technicians={technicians}/>
                     </div>
+                    <div></div>
                     <input 
                         type="name" 
                         placeholder="Enter your name"
