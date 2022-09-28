@@ -1,7 +1,22 @@
+[Fixed]
 1. Bug: at 1:30 am 12/9/2022, timetable uses local time for week dates while server URL uses UTC time.
    This makes appointment ID 631a4fcae028a1413c8a71a7 which is on Sunday week 36 to be rendered on Sunday week 37
+
+[Fixed]
 2. Bug: On booking page, when clicking on the area of the Technician Selector button's options, eventhough the options component is inactive,
    it is still rendered, and the option where the click happens is selected.
+
+[Fixed]
 3. Task: Change the design to passing only appointment times from booking page to Day component since passing the whole records objects
    is not neccessary. Then a time slot in Day component is clicked, the time slot id is passed upwards to booking page. Then booking page
    pops up the booking modal and renders info from the record object based on the time slot id.
+
+[Fixed]
+4. Bug: When creating appointments with Postman on 27/09/2022, the appointments got mirrored to 1/11/2022. This is found in Lenovo laptop.
+
+[Fixed]
+5. Bug: Sundays on timetable are not correct. The day number is correct, but month number is offset by +1 comparing to the right value.
+   Sometimes the day value is the same as that of Saturday. This is found in the Lenovo laptop.
+   Investigation: This is because in the initialisation of timetable days, when the days go from this to next month, the following days
+   gets initialised with the old monDate while the current date has already been reset to 1. For example, on Sat 1/10/22, a new month started
+   and the day got reset to 1. Then the next Sun get initialised with the old monDate which is 26 making the date being set to another next month (November).

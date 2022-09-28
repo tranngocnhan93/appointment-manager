@@ -7,17 +7,19 @@ import BookingForm from "../components/BookingForm";
 
 export default function Booking() {
     const today = new Date();
+    console.log(today)
     const monDate = today.getDate() - today.getDay() + 1;
+    console.log(monDate)
     const [records, setRecords] = useState([]);
     const [technician, setTechnician] = useState("");
     const [bookingFormData, setBookingFormData] = useState({isOpen: false, data: []});
     const initialTimetableDays = [{weekDay: "Mon", weekDate: new Date(today.setDate(monDate))},
-                                  {weekDay: "Tue", weekDate: new Date(today.setDate(monDate + 1))},
-                                  {weekDay: "Wed", weekDate: new Date(today.setDate(monDate + 2))},
-                                  {weekDay: "Thu", weekDate: new Date(today.setDate(monDate + 3))},
-                                  {weekDay: "Fri", weekDate: new Date(today.setDate(monDate + 4))},
-                                  {weekDay: "Sat", weekDate: new Date(today.setDate(monDate + 5))},
-                                  {weekDay: "Sun", weekDate: new Date(today.setDate(monDate + 6))},]
+                                  {weekDay: "Tue", weekDate: new Date(today.setDate(today.getDate() + 1))},
+                                  {weekDay: "Wed", weekDate: new Date(today.setDate(today.getDate() + 1))},
+                                  {weekDay: "Thu", weekDate: new Date(today.setDate(today.getDate() + 1))},
+                                  {weekDay: "Fri", weekDate: new Date(today.setDate(today.getDate() + 1))},
+                                  {weekDay: "Sat", weekDate: new Date(today.setDate(today.getDate() + 1))},
+                                  {weekDay: "Sun", weekDate: new Date(today.setDate(today.getDate() + 1))},]
     const [timetableDays, dispatch] = useReducer(timetableDayReducer, initialTimetableDays);
     
     function timetableDayReducer(state, action) {
