@@ -99,7 +99,6 @@ export default function Booking() {
                 }
             }
         }
-        console.log(formData.data)
         setBookingFormData(formData);
     }
 
