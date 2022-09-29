@@ -11,9 +11,9 @@
 .booking--form--container {
     position: absolute;
     top: 35%;
-    left: 35%;
+    left: 45%;
     height: 300px;
-    width: 450px;
+    width: 230px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
 
 .booking--form {
     background-color: #F5F5F5;
-    width: 230px;
+    width: 100%;
     padding: 40px;
     border-radius: 10px;
     display: flex;
