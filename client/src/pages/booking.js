@@ -7,9 +7,7 @@ import BookingForm from "../components/BookingForm";
 
 export default function Booking() {
     const today = new Date();
-    console.log(today)
     const monDate = today.getDate() - today.getDay() + 1;
-    console.log(monDate)
     const [records, setRecords] = useState([]);
     const [technician, setTechnician] = useState("");
     const [bookingFormData, setBookingFormData] = useState({isOpen: false, data: []});
@@ -85,20 +83,23 @@ export default function Booking() {
     function getTechnicianList() {
         let technicianList = [];
         for (let i = 0; i < records.length; i++) {
-            if(!technicianList.includes(records[i].technician)) {
+            if (!technicianList.includes(records[i].technician)) {
                 technicianList.push(records[i].technician);
             }
         }
         return technicianList;
     }
 
-    function showBookingForm(param) {
+    function showBookingForm(paramTime) {
         let formData = {isOpen: true, data: []};
         for (let i = 0; i < records.length; i++) {
-            if ((records[i].date === param) && ((records[i].technician === technician) || (technician === "All technicians"))) {
-                formData.data.push({technician: records[i].technician, date: records[i].date});
+            if ((records[i].date === paramTime) && ((records[i].technician === technician) || (technician === "All technicians"))) {
+                if (!formData.data.some(item => (item.technician === records[i].technician && item.date === records[i].date))) {
+                    formData.data.push({technician: records[i].technician, date: records[i].date});
+                }
             }
         }
+        console.log(formData.data)
         setBookingFormData(formData);
     }
 
