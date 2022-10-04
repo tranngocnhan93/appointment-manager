@@ -20,3 +20,5 @@
    Investigation: This is because in the initialisation of timetable days, when the days go from this to next month, the following days
    gets initialised with the old monDate while the current date has already been reset to 1. For example, on Sat 1/10/22, a new month started
    and the day got reset to 1. Then the next Sun get initialised with the old monDate which is 26 making the date being set to another next month (November).
+
+TEMP: Guard for booking form when no technician is selected. Required field for customer and phone
