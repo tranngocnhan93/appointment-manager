@@ -2,12 +2,12 @@ import React from "react";
 import ReactDom from "react-dom"
 import "./styles/BookingForm.css"
 import TechnicianSelector from "./TechnicianSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function BookingForm(props) {
     const [technician, setTechnician] = useState("");
-    const [formData, setFormData] = useState({technician: "", time: "", name: "", phone: ""});
+    const [formData, setFormData] = useState({appointmentID: "", customer: "", phone: ""});
     const timeFormatOptions = {
         year: "numeric",
         month: "numeric",
@@ -18,38 +18,59 @@ export default function BookingForm(props) {
     };
     const bookingTime = new Date(props.data[0] && props.data[0].date);
 
+    useEffect(() => {
+        console.log("aaaa")
+        if (props.data.length === 1) {
+            setFormData(prev => {
+                return {
+                    ...prev,
+                    appointmentID: props.data[0]._id
+                }
+            })
+        }
+
+    }, [props.data])
+
+    useEffect(() => {
+        if (props.data.length > 1) {
+            console.log("bbbb")
+            const temAppointment = props.data.find(item => item.technician === technician)
+            if (temAppointment != null) {
+                setFormData(prev => {
+                    return {
+                        ...prev,
+                        appointmentID: temAppointment._id
+                    }
+                })
+            }
+        }
+    }, [technician])
+
     function handleSubmit(event) {
         event.preventDefault();
-        let tempTechnician
-        let tempTime
-
-        if (props.data.length === 1) {
-            tempTechnician = technicians[0];
-            tempTime = props.data[0].date;
-        }
-        else if (props.data.length > 1) {
-            tempTechnician = technician;
-            tempTime = props.data[0].date;
-        }
-
-        setFormData(prev => {
-            return {
-                ...prev,
-                technician: tempTechnician,
-                time: tempTime
-            }
-        })
-
-        if (tempTechnician === "" || tempTime === "") {
-            console.log("Select a technician first")
-        }
-        
-        //Clear all data
-        //setTechnician("")
-        //setFormData({technician: "", time: "", name: "", phone: ""})
-    }
+        async function submitForm() {
+            const payload = {
+                method: "PUT",
+                //mode: "cors",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(formData),
+            };
+            console.log(payload.body)
+            const response = await fetch(`http://localhost:3000/update/${formData.appointmentID}`, payload);
     
-    console.log(formData)
+            if (!response.ok) {
+                const message = `An error occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+    
+            const recordResponse = await response.json();
+            console.log(recordResponse)
+        }
+        submitForm()
+
+    }
+
     function handleInput(event) {
         const {name, value} = event.target;
         setFormData(prev => {
@@ -83,6 +104,12 @@ export default function BookingForm(props) {
                 <div className="technician--textbox">Technician not found</div>
     )
 
+    const renderAppointmentPlace = (
+        props.data[0] != null ? 
+        <div className="form--place">{props.data[0].place}</div> :
+        <div>Appointment place not found</div>
+    )
+
     const renderBookingTime = (
         props.data[0] != null ? 
         <div className="form--time">{bookingTime.toLocaleString("en-GB", timeFormatOptions)}</div> :
@@ -96,14 +123,15 @@ export default function BookingForm(props) {
                 <form className="booking--form" onSubmit={handleSubmit}>
                     <button className="form--close" onClick={props.closeForm}>x</button>
                     {renderTechnicians}
+                    {renderAppointmentPlace}
                     {renderBookingTime}
                     <input
-                        type="name"
-                        name="name"
+                        type="customer"
+                        name="customer"
                         placeholder="Enter your name"
                         className="form--input"
                         onChange={handleInput}
-                        value={formData.name}
+                        value={formData.customer}
                     />
                     <input
                         type="phone"

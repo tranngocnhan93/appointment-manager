@@ -95,7 +95,7 @@ export default function Booking() {
         for (let i = 0; i < records.length; i++) {
             if ((records[i].date === paramTime) && ((records[i].technician === technician) || (technician === "All technicians"))) {
                 if (!formData.data.some(item => (item.technician === records[i].technician && item.date === records[i].date))) {
-                    formData.data.push({technician: records[i].technician, date: records[i].date});
+                    formData.data.push(records[i]);
                 }
             }
         }
@@ -129,7 +129,7 @@ export default function Booking() {
                     handleClick={showBookingForm}/>
         }
     )
-
+    console.log(records)
     return (
         <div>
             <div className="calendar-container">
